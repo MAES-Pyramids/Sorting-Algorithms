@@ -70,3 +70,5 @@ g.addEdge("D", "E", 8);
 g.addEdge("E", "F", 10);
 g.addEdge("B", "G", 9);
 g.primsMST().display();
+
+// Note: primsMST is a class method not a stand alone function so we usually use it inside of a graph class 
