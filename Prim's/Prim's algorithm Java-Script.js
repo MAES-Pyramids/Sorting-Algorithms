@@ -1,74 +1,101 @@
-primsMST() {
-  // Initialize graph that'll contain the MST
-  const MST = new Graph();
-  if (this.nodes.length === 0) {
-     return MST;
-  }
+// Number of vertices in the graph
+let V = 5;
 
+// A utility function to find the vertex with
+// minimum key value, from the set of vertices
+// not yet included in MST
+function minKey(key, mstSet) {
+  // Initialize min value
+  let min = Number.MAX_VALUE,
+    min_index;
 
-  // Select first node as starting node
-  let s = this.nodes[0];
+  for (let v = 0; v < V; v++)
+    if (mstSet[v] == false && key[v] < min) (min = key[v]), (min_index = v);
 
-
-  // Create a Priority Queue and explored set
-  let edgeQueue = new PriorityQueue(this.nodes.length * this.nodes.length);
-  let explored = new Set();
-  explored.add(s);
-  MST.addNode(s);
-
-
-  // Add all edges from this starting node to the PQ taking weights as priority
-  this.edges[s].forEach(edge => {
-     edgeQueue.enqueue([s, edge.node], edge.weight);
-  });
-
-
-  // Take the smallest edge and add that to the new graph
-  let currentMinEdge = edgeQueue.dequeue();
-  while (!edgeQueue.isEmpty()) {
-
-
-     // COntinue removing edges till we get an edge with an unexplored node
-     while (!edgeQueue.isEmpty() && explored.has(currentMinEdge.data[1])) {
-        currentMinEdge = edgeQueue.dequeue();
-     }
-     let nextNode = currentMinEdge.data[1];
-
-
-     // Check again as queue might get empty without giving back unexplored element
-     if (!explored.has(nextNode)) {
-        MST.addNode(nextNode);
-        MST.addEdge(currentMinEdge.data[0], nextNode, currentMinEdge.priority);
-        // Again add all edges to the PQ
-        this.edges[nextNode].forEach(edge => {
-           edgeQueue.enqueue([nextNode, edge.node], edge.weight);
-        });
-
-
-        // Mark this node as explored explored.add(nextNode);
-        s = nextNode;
-     }
-  }
-  return MST;
+  return min_index;
 }
 
-let g = new Graph();
-g.addNode("A");
-g.addNode("B");
-g.addNode("C");
-g.addNode("D");
-g.addNode("E");
-g.addNode("F");
-g.addNode("G");
+// A utility function to print the
+// constructed MST stored in parent[]
+function printMST(parent, graph) {
+  document.write("Edge      Weight" + "<br>");
+  for (let i = 1; i < V; i++)
+    document.write(
+      parent[i] + "   -  " + i + "     " + graph[i][parent[i]] + "<br>"
+    );
+}
 
+// Function to construct and print MST for
+// a graph represented using adjacency
+// matrix representation
+function primMST(graph) {
+  // Array to store constructed MST
+  let parent = [];
 
-g.addEdge("A", "C", 100);
-g.addEdge("A", "B", 3);
-g.addEdge("A", "D", 4);
-g.addEdge("C", "D", 3);
-g.addEdge("D", "E", 8);
-g.addEdge("E", "F", 10);
-g.addEdge("B", "G", 9);
-g.primsMST().display();
+  // Key values used to pick minimum weight edge in cut
+  let key = [];
 
-// Note: primsMST is a class method not a stand alone function so we usually use it inside of a graph class 
+  // To represent set of vertices included in MST
+  let mstSet = [];
+
+  // Initialize all keys as INFINITE
+  for (let i = 0; i < V; i++) (key[i] = Number.MAX_VALUE), (mstSet[i] = false);
+
+  // Always include first 1st vertex in MST.
+  // Make key 0 so that this vertex is picked as first vertex.
+  key[0] = 0;
+  parent[0] = -1; // First node is always root of MST
+
+  // The MST will have V vertices
+  for (let count = 0; count < V - 1; count++) {
+    // Pick the minimum key vertex from the
+    // set of vertices not yet included in MST
+    let u = minKey(key, mstSet);
+
+    // Add the picked vertex to the MST Set
+    mstSet[u] = true;
+
+    // Update key value and parent index of
+    // the adjacent vertices of the picked vertex.
+    // Consider only those vertices which are not
+    // yet included in MST
+    for (let v = 0; v < V; v++)
+      // graph[u][v] is non zero only for adjacent vertices of m
+      // mstSet[v] is false for vertices not yet included in MST
+      // Update the key only if graph[u][v] is smaller than key[v]
+      if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+        (parent[v] = u), (key[v] = graph[u][v]);
+  }
+
+  // print the constructed MST
+  printMST(parent, graph);
+}
+
+// Driver code
+
+/* Let us create the following graph
+    2 3
+    (0)--(1)--(2)
+    | / \ |
+    6| 8/ \5 |7
+    | / \ |
+    (3)-------(4)
+    9     */
+
+let graph = [
+  [0, 2, 0, 6, 0],
+  [2, 0, 3, 8, 5],
+  [0, 3, 0, 0, 7],
+  [6, 8, 0, 0, 9],
+  [0, 5, 7, 9, 0],
+];
+
+// Print the solutions
+primMST(graph);
+
+// Output
+//  Edge     Weight
+//  0 - 1     2
+//  1 - 2     3
+//  0 - 3     6
+//  1 - 4     5
