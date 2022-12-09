@@ -6,7 +6,7 @@ ___
 ## Table of contents
 <img align="right" alt="GIF" height="160px" src="https://media.giphy.com/media/du3J3cXyzhj75IOgvA/giphy.gif" /> 
 
-| Algorithm           | 
+| Algorithms           | 
 | -------             |
 | [Insertion Sort](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Insertion)  | 
 | [Merge Sort](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Merge)          |
