@@ -10,5 +10,6 @@ ___
 | -------             |
 | [Insertion Sort](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Insertion)  | 
 | [Merge Sort](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Merge)          |
-| [Prim's Algo](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Prim's)             |
+| [Prim's Algo](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Prim's)        |
+| [kruskals Algo](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/kruskals)    |
 
