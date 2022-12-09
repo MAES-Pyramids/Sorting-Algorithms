@@ -1,6 +1,6 @@
-# Sorting-Algorithms
+# Sorting & Minimum Spanning Tree - Algorithms
 
-Inside each Algorithm directory we have a detailed README file that cointains an informative description of the Algorithm andsome analysis of its performance.
+Inside each Algorithm directory we have a detailed README file that cointains an informative description of the Algorithm with little bit of analysis for its performance.
 
 ___
 ## Table of contents
@@ -13,3 +13,4 @@ ___
 | [Prim's Algo](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/Prim's)        |
 | [kruskals Algo](https://github.com/MAES-Pyramids/Sorting-Algorithms/tree/master/kruskals)    |
 
+## Done by : محمد ابوالسعود عطيه ابوالسعود // Section : 8 
